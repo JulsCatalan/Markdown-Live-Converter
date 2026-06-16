@@ -1,5 +1,81 @@
 @import "tailwindcss";
 
-body{
-  background-color: #0b0a09;
+/* ── Dark theme (default) ── */
+:root {
+  --ui-bg:      #0c0a09;
+  --ui-surface: #1c1917;
+  --ui-raised:  #292524;
+  --ui-border:  #292524;
+  --ui-bsub:    #44403c;
+  --ui-t1:      #f5f5f4;
+  --ui-t2:      #d6d3d1;
+  --ui-t3:      #a8a29e;
+  --ui-t4:      #78716c;
+  --ui-t5:      #57534e;
+  --ui-tedit:   #e7e5e4;
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --ui-bg:      #ffffff;
+  --ui-surface: #f5f5f4;
+  --ui-raised:  #e7e5e4;
+  --ui-border:  #e7e5e4;
+  --ui-bsub:    #d6d3d1;
+  --ui-t1:      #1c1917;
+  --ui-t2:      #44403c;
+  --ui-t3:      #78716c;
+  --ui-t4:      #a8a29e;
+  --ui-t5:      #d6d3d1;
+  --ui-tedit:   #292524;
+}
+
+/* ── Smooth theme transitions ── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Don't transition layout or transform properties globally */
+svg, img, canvas { transition: none; }
+
+/* ── Tab content fade-in ── */
+@keyframes ui-fade-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body { background-color: var(--ui-bg); }
+
+/* ── Semantic utilities (Tailwind v4 @utility) ── */
+@utility bg-ui        { background-color: var(--ui-bg); }
+@utility bg-ui-surface { background-color: var(--ui-surface); }
+@utility bg-ui-raised  { background-color: var(--ui-raised); }
+
+@utility border-ui    { border-color: var(--ui-border); }
+@utility border-ui-sub { border-color: var(--ui-bsub); }
+
+@utility text-ui      { color: var(--ui-t1); }
+@utility text-ui-2    { color: var(--ui-t2); }
+@utility text-ui-3    { color: var(--ui-t3); }
+@utility text-ui-4    { color: var(--ui-t4); }
+@utility text-ui-5    { color: var(--ui-t5); }
+@utility text-ui-edit { color: var(--ui-tedit); }
+
+@utility caret-ui-3   { caret-color: var(--ui-t3); }
+
+@utility placeholder-ui-5 {
+  &::placeholder { color: var(--ui-t5); }
+}
+
+@utility ring-ui-sub  { --tw-ring-color: var(--ui-bsub); }
+
+@utility animate-tab-in {
+  animation: ui-fade-in 180ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
 }

@@ -24,62 +24,62 @@ export type PresetKey = "clasico" | "moderno" | "relajado";
 export const PRESETS: Record<PresetKey, { label: string; description: string; styles: PrintStyles }> = {
   clasico: {
     label: "Clásico",
-    description: "Serif refinado, amplio espacio, tipografía editorial",
+    description: "Serif editorial, blanco limpio, tipografía compacta",
     styles: {
       fontFamily: '"Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif',
-      fontSize: "16px",
-      lineHeight: "1.8",
-      colorText: "#18181b",       // zinc-900
-      colorBg: "#fafafa",         // zinc-50
-      colorHeading: "#09090b",    // zinc-950
-      colorMuted: "#3f3f46",      // zinc-700
-      colorBorder: "#e4e4e7",     // zinc-200
-      colorCode: "#3f3f46",       // zinc-700
-      colorCodeBg: "#f4f4f5",     // zinc-100
-      marginTop: "25mm",
-      marginRight: "25mm",
-      marginBottom: "25mm",
-      marginLeft: "25mm",
-    },
-  },
-  moderno: {
-    label: "Moderno",
-    description: "Sans-serif limpio, ultra minimalista, márgenes ajustados",
-    styles: {
-      fontFamily: '"Inter", "DM Sans", system-ui, -apple-system, sans-serif',
       fontSize: "15px",
       lineHeight: "1.65",
-      colorText: "#27272a",       // zinc-800
+      colorText: "#18110a",
       colorBg: "#ffffff",
-      colorHeading: "#09090b",    // zinc-950
-      colorMuted: "#3f3f46",      // zinc-700
-      colorBorder: "#e4e4e7",     // zinc-200
-      colorCode: "#18181b",       // zinc-900
-      colorCodeBg: "#f4f4f5",     // zinc-100
+      colorHeading: "#0a0600",
+      colorMuted: "#6b5f56",
+      colorBorder: "#e8e4e0",
+      colorCode: "#7c3a15",
+      colorCodeBg: "#f5f5f5",
       marginTop: "18mm",
       marginRight: "18mm",
       marginBottom: "18mm",
       marginLeft: "18mm",
     },
   },
+  moderno: {
+    label: "Moderno",
+    description: "Blanco puro, sans-serif preciso, código terminal",
+    styles: {
+      fontFamily: '"Inter", system-ui, -apple-system, "Helvetica Neue", sans-serif',
+      fontSize: "14px",
+      lineHeight: "1.55",
+      colorText: "#0f172a",
+      colorBg: "#ffffff",
+      colorHeading: "#000000",
+      colorMuted: "#475569",
+      colorBorder: "#e2e8f0",
+      colorCode: "#10b981",
+      colorCodeBg: "#0f172a",
+      marginTop: "15mm",
+      marginRight: "15mm",
+      marginBottom: "15mm",
+      marginLeft: "15mm",
+    },
+  },
   relajado: {
     label: "Relajado",
-    description: "Monospace suave, fondo cálido, lectura cómoda",
+    description: "Serif literario, blanco, espaciado cómodo",
     styles: {
-      fontFamily: '"Lora", "Source Serif 4", Georgia, serif',
-      fontSize: "17px",
-      lineHeight: "1.9",
-      colorText: "#3f3f46",       // zinc-700
-      colorBg: "#fafafa",         // zinc-50
-      colorHeading: "#18181b",    // zinc-900
-      colorMuted: "#71717a",      // zinc-500
-      colorBorder: "#e4e4e7",     // zinc-200
-      colorCode: "#27272a",       // zinc-800
-      colorCodeBg: "#f4f4f5",     // zinc-100
-      marginTop: "22mm",
-      marginRight: "28mm",
-      marginBottom: "22mm",
-      marginLeft: "28mm",
+      fontFamily: '"Lora", "Source Serif 4", Georgia, "Times New Roman", serif',
+      fontSize: "15px",
+      lineHeight: "1.7",
+      colorText: "#1a1a1a",
+      colorBg: "#ffffff",
+      colorHeading: "#000000",
+      colorMuted: "#5a5a5a",
+      colorBorder: "#e5e5e5",
+      colorCode: "#5c3d00",
+      colorCodeBg: "#f5f5f5",
+      marginTop: "18mm",
+      marginRight: "22mm",
+      marginBottom: "18mm",
+      marginLeft: "22mm",
     },
   },
 };
@@ -125,6 +125,12 @@ export function buildPrintCSS(s: PrintStyles, margins: Pick<PrintStyles, "margin
       padding: ${margins.marginTop} ${margins.marginRight} ${margins.marginBottom} ${margins.marginLeft};
       box-sizing: border-box;
     }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.25em; }
+    h4 { font-size: 1.1em; }
+    h5 { font-size: 1em; }
+    h6 { font-size: 0.9em; }
     h1, h2, h3, h4, h5, h6 {
       color: ${s.colorHeading};
       font-family: ${s.fontFamily};
@@ -161,6 +167,11 @@ export function buildPrintCSS(s: PrintStyles, margins: Pick<PrintStyles, "margin
     th { background: ${s.colorCodeBg}; color: ${s.colorHeading}; }
     hr { border: none; border-top: 1px solid ${s.colorBorder}; margin: 2em 0; }
     img { max-width: 100%; height: auto; }
+    body::after {
+      content: '';
+      display: block;
+      height: ${margins.marginBottom};
+    }
   `;
 }
 
@@ -175,6 +186,12 @@ export function buildPreviewCSS(s: PrintStyles): string {
       color: ${s.colorText} !important;
       background: ${s.colorBg};
     }
+    #md-preview h1 { font-size: 2em; }
+    #md-preview h2 { font-size: 1.5em; }
+    #md-preview h3 { font-size: 1.25em; }
+    #md-preview h4 { font-size: 1.1em; }
+    #md-preview h5 { font-size: 1em; }
+    #md-preview h6 { font-size: 0.9em; }
     #md-preview h1,
     #md-preview h2,
     #md-preview h3,
