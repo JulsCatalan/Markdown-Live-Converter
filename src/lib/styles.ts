@@ -108,12 +108,10 @@ export function saveStyles(preset: PresetKey, overrides: Partial<PrintStyles>) {
 }
 
 // CSS string para inyectar en la ventana de impresión
-// Truco: @page margin 0 + padding en body = el browser no tiene espacio
-// para header/footer y los omite automáticamente sin que el usuario haga nada.
 export function buildPrintCSS(s: PrintStyles, margins: Pick<PrintStyles, "marginTop" | "marginRight" | "marginBottom" | "marginLeft">) {
   return `
     @page {
-      margin: 0 !important;
+      margin: ${margins.marginTop} ${margins.marginRight} ${margins.marginBottom} ${margins.marginLeft};
     }
     body {
       font-family: ${s.fontFamily};
@@ -122,7 +120,7 @@ export function buildPrintCSS(s: PrintStyles, margins: Pick<PrintStyles, "margin
       color: ${s.colorText};
       background: ${s.colorBg};
       max-width: 100%;
-      padding: ${margins.marginTop} ${margins.marginRight} ${margins.marginBottom} ${margins.marginLeft};
+      padding: 0;
       box-sizing: border-box;
     }
     h1 { font-size: 2em; }
@@ -164,14 +162,9 @@ export function buildPrintCSS(s: PrintStyles, margins: Pick<PrintStyles, "margin
     pre code { background: none; padding: 0; }
     table { border-collapse: collapse; width: 100%; margin: 1em 0; }
     th, td { border: 1px solid ${s.colorBorder}; padding: 0.5em 0.75em; }
-    th { background: ${s.colorCodeBg}; color: ${s.colorHeading}; }
+    th { background: #1e293b; color: #ffffff; }
     hr { border: none; border-top: 1px solid ${s.colorBorder}; margin: 2em 0; }
     img { max-width: 100%; height: auto; }
-    body::after {
-      content: '';
-      display: block;
-      height: ${margins.marginBottom};
-    }
   `;
 }
 
@@ -255,8 +248,8 @@ export function buildPreviewCSS(s: PrintStyles): string {
       color: ${s.colorText} !important;
     }
     #md-preview th {
-      background: ${s.colorCodeBg} !important;
-      color: ${s.colorHeading} !important;
+      background: #1e293b !important;
+      color: #ffffff !important;
     }
     #md-preview hr {
       border: none;
